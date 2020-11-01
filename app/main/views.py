@@ -8,12 +8,9 @@ from .. import db,photos
 
 @main.route('/')
 def index():
-
     '''
     View root page function that returns the index page and its data
     '''
-
-
     title = 'Home - Roro blog website'
     content = "WELCOME TO THEE BLOG WEBSITE"
     quote = get_quote()
