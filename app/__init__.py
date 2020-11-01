@@ -6,13 +6,16 @@ from flask_login import LoginManager
 from flask_uploads import UploadSet,configure_uploads,IMAGES
 from flask_mail import Mail
 from flask_simplemde import SimpleMDE
+
+
+login_manager = LoginManager()
+login_manager.session_protection = 'strong'
+login_manager.login_view = 'auth.login'
   
    
 bootstrap = Bootstrap()
 db = SQLAlchemy()
-login_manager = LoginManager()
-login_manager.session_protection = 'strong'
-login_manager.login_view = 'auth.login'
+
 photos = UploadSet('photos', IMAGES)
 mail = Mail()
 simple = SimpleMDE()
