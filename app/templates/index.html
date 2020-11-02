@@ -11,14 +11,17 @@
 
 {% block content %}
 <h1 style="color: brown;">
+    <br>
+    <br>
+    <br>
     <center><b>WELCOME TO THEE BLOG WEBSITE</b></center>
 </h1>
 <br><br>
-<div class="container">
+<!-- <div class="container">
     <div class="row">
 
         <div class="col-md-4 pt-3">
-            <div class="card" style="position: relative">
+            <div class="card">
                 <div class="card-header">
                     <div class="card-title">
                         <h2>View best quote</h2>
@@ -30,11 +33,24 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
-            <h2>This is the best blog website where one can create and share their opinions. One can also read and comment on those opinions. Anyone interested can create account, login in, add opinion or leave a comment.</h2>
-        </div>
+      
 
     </div>
-</div>
+</div> -->
+
+
+<div class="home">
+    <div class="container">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div>
+                <p>{{ quote.author }}</p>
+                
+                <p class="text-right"><b>~ {{ quote.quote }} ~</b> </p>
+
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
 
 {% endblock %}

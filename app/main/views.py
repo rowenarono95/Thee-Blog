@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from .forms import UpdateProfile,BlogForm,CommentForm
-from ..models import User
+from ..models import User,Blog
 from ..request import get_quote
 from flask_login import login_required,current_user
 from .. import db,photos
@@ -58,4 +58,30 @@ def update_pic(uname):
         path = f'photos/{filename}'
         user.profile_pic_path = path
         db.session.commit()
-    return redirect(url_for('main.profile',uname=uname))     
+    return redirect(url_for('main.profile',uname=uname))  
+
+
+
+@main.route('/blog/new', methods=['GET', 'POST'])
+@login_required
+def newblog():
+    """
+    View Blog function that returns the BLog page and data
+    """
+    blog_form = BlogForm()
+    if blog_form.validate_on_submit():
+        blog_title= blog_form.blog_title.data
+        description = blog_form.description.data
+        print(blog_title)
+        new_blog = Blog(title_blog=blog_title, description=description, user_id=current_user)
+        new_blog.save_blog()
+        return redirect(url_for('main.blog'))
+    title = 'Roro Blog'
+    return render_template('blog.html', title=title, blog_form=blog_form)   
+
+
+@main.route('/blog/display')
+@login_required
+def blog():
+    return render_template('myblogs.html')
+

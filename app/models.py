@@ -51,13 +51,14 @@ class Blog(db.Model):
     def save_blog(self):
         db.session.add(self)
         db.session.commit()
+
     @classmethod
     def get_blog(cls, id):
         blog = Blog.query.filter_by(id=id).all()
         return blog
     @classmethod
     def get_all_blog(cls):
-        blog = Blog.query.order_by('-id').all()
+        blog = Blog.query.order_by('id').all()
         return blog
     def __repr__(self):
         return f'Blog {self.blog_title}'        
