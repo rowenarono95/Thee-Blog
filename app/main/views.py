@@ -72,17 +72,19 @@ def newblog():
     if blog_form.validate_on_submit():
         title= blog_form.blog_title.data
         description = blog_form.description.data
-        new_blog = Blog(title_blog=title, description=description, user_id=current_user)
-        print('our new blog',new_blog)
-        return redirect(url_for('main.index'))
+        new_blog = Blog(title_blog=title, description=description, username=current_user)
+        # print('our new blog',new_blog)
+        db.session.add(new_blog)
+        db.session.commit()
+        return redirect(url_for('main.vblog'))
     title = 'My Blog'
     return render_template('blog.html', title=title, blog_form=blog_form)   
 
 
-@main.route('/blog/display')
+
 @main.route('/blog/allblogs', methods=['GET', 'POST'])
 @login_required
-def blog():
+def vblog():
     blog = Blog.query.all()
-    return render_template('myblogs.html', blog=blog)
+    return render_template('myblogs.html', blogs=blog)
 
