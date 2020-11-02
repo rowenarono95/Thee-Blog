@@ -61,7 +61,7 @@ class Blog(db.Model):
         blog = Blog.query.order_by('id').all()
         return blog
     def __repr__(self):
-        return f'Blog {self.blog_title}'        
+        return f'Blog {self.title_blog}'        
 
 
 
