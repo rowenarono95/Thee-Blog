@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from .forms import UpdateProfile,BlogForm,CommentForm
-from ..models import User,Blog
+from ..models import User,Blog,Comment
 from ..request import get_quote
 from flask_login import login_required,current_user
 from .. import db,photos
@@ -87,4 +87,30 @@ def newblog():
 def vblog():
     blog = Blog.query.all()
     return render_template('myblogs.html', blogs=blog)
+
+
+@main.route('/comment/<int:id>', methods=['GET', 'POST'])
+@login_required
+def comment(id):
+    
+    blog_comment = Comment.query.filter_by(blog_id=id).all()
+    comment_form = CommentForm()
+    if comment_form.validate_on_submit():
+        new_comment = Comment(blog_id=id, comment=comment_form.comment.data, username=current_user)
+        new_comment.save_comment()
+
+        return redirect(url_for('main.vblog'))
+    return render_template('comments.html', blog_comment=blog_comment, CommentForm=comment_form)  
+
+
+@main.route('/deletecomment/<int:comment_id>', methods=['GET', 'POST'])
+@login_required
+def deletecomment(comment_id):
+    comment =Comment.query.get_or_404(comment_id)
+    if (comment.username.id) != current_user.id:
+        abort(403)
+    db.session.delete(comment)
+    db.session.commit()
+    
+    return redirect (url_for('main.vblog'))      
 

@@ -18,9 +18,9 @@
                 </div>
                 <div class="panel-footer">
                     <p class="date text-muted">Posted on ~ {{blog.date.strftime('%Y-%m-%d')}}</p>
-                    <a href=""><i class="fas fa-comment fa-fw"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="{{url_for('main.comment', id=blog.id)}}"><i class="fas fa-comment fa-fw"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
                     {% if blog.user == current_user%}
-                    <a href=""><i class="fas fa-trash-alt fa-fw"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="{{url_for('main.comment', id=blog.id)}}"><i class="fas fa-trash-alt fa-fw"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="" class="fas fa-marker fa-fw"></i></a>
                     {% endif %}
                 </div>
