@@ -1,20 +1,22 @@
 {% extends 'base.html'%}
 <!-- {% import 'bootstrap/wtf.html' as wtf %} -->
 {% block content %}
-{{wtf.quick_form(CommentForm)}}
+<div class="container mt-5">
+    {{wtf.quick_form(CommentForm)}}
 
-{% if blog_comment %}
-{% for comment in blog_comment %}
-<h5>{{comment.title}}</h5>
-<p class="card-title">{{ comment.comment }}</p>
-<p class="card-text">--- {{comment.username.username}}</p>
-<a href="{{url_for('main.deletecomment', comment_id=comment.id)}}"><button >Delete Comment</button></a>
-{% endfor %}
-<div class="col-md-5  commentform">
-    {%else%}
-    <p class="card-title">No Comments for this yet for this post. Be the first to comment</p>
-
-
-    {%endif%}
+    {% if blog_comment %}
+    {% for comment in blog_comment %}
+    <h5>{{comment.title}}</h5>
+    <p class="card-title">~..{{ comment.comment }}</p>
+    <p class="card-text">by~~ {{comment.username.username}}</p>
+    <a href="{{url_for('main.deletecomment', comment_id=comment.id)}}"><button class="btn btn-default" >Delete Comment</button></a>
+    {% endfor %}
+    <div class="col-md-5  commentform">
+        {%else%}
+        <p class="card-title">No Comments for this yet for this post. Be the first to comment</p>
+    
+    
+        {%endif%}    
+</div>
 
     {% endblock %}
